@@ -1,13 +1,8 @@
 # Analysis Patterns Library
 
 ## Funnel Analysis
-Source: funnel-analysis skill
-
-1. Define stages (Awareness → Interest → Consideration → Purchase → Retention)
-2. Calculate stage-to-stage conversion rates
-3. Identify largest drop-off points (absolute and relative)
-4. Segment by traffic source, device, cohort
-5. Visualize: funnel chart + bar chart of drop-off rates
+→ Delegate to `funnel-analysis` skill for detailed implementation.
+Key outputs: stage conversion rates, drop-off visualization, segment comparison.
 
 ## Cohort Analysis
 

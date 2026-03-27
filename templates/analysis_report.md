@@ -44,6 +44,20 @@ Confidence: [High/Medium/Low] — [plain-language reason]
 - [ ] Regression to Mean: triggered by extreme value?
 - [ ] Selection Bias: sample representative?
 - [ ] Novelty Effect: Week 1 vs Week 2+ effects compared? (A/B tests only)
+- [ ] Instrumentation Bias: recent logging/tracking/SDK change?
+- [ ] Seasonality: comparing equivalent time periods?
+
+### Confidence Scoring Rubric
+| Axis | Score | Reason |
+|------|-------|--------|
+| Statistical significance | /3 | |
+| Effect size | /3 | |
+| Sample size | /3 | |
+| Data quality | /3 | |
+| **Total** | /12 | High (10-12) / Medium (7-9) / Low (<=6) |
+
+### Analysis Level
+[Descriptive / Diagnostic / Predictive / Prescriptive]
 
 ---
 

@@ -12,14 +12,8 @@
 - core_value: [1-line value proposition]
 
 ## KPIs
-- north_star: [North Star Metric]
-- primary: [list of primary KPIs]
-- secondary: [list of secondary KPIs]
-
-## Metric Classification
-| Metric | Type | Controllable By | Leading/Lagging |
-|--------|------|----------------|-----------------|
-| | Input/Output | | Leading/Lagging |
+→ See analysis/kpi_definitions.md for full definitions, metric tree, and AARRR mapping.
+- north_star: [metric name only]
 
 ## Tenets (priority rules when metrics conflict)
 1. [e.g., Long-term retention > Short-term activation]
@@ -27,7 +21,12 @@
 3. [e.g., Revenue quality > Revenue volume]
 
 ## Data Sources
-- [source]: [details, connection method]
+
+### Persistent (always available)
+- [e.g., GA4: property_id=XXXX (connected via MCP)]
+
+### Ad-hoc (temporary exports, mark inactive after 30 days)
+<!-- Format: YYYY-MM-DD: filename (source) -->
 
 ## Analysis History
 <!-- Auto-appended by pm-data-analysis skill -->
