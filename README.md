@@ -1,6 +1,6 @@
 # pm-data-analysis
 
-> CSVを渡すだけで、GAFA水準の信頼度付き分析レポートを自動生成する Claude Code スキル。
+> CSVを渡すだけで、主要テック企業の分析手法を参考にした、信頼度付き分析レポートを自動生成する Claude Code スキル。
 
 ## 特徴
 
@@ -8,7 +8,7 @@
 - **プロジェクト知識の蓄積**: `analysis/` ディレクトリに事業コンテキスト・KPI・過去の分析結果を蓄積。2回目以降はヒアリング不要
 - **信頼度スコア**: 全ての示唆に High/Medium/Low の信頼度を付与。Low の場合は追加データを要求
 - **バイアス自動検出**: シンプソンのパラドックス、生存者バイアス、平均回帰を結果提示前に自動チェック
-- **GAFA品質の出力**: エグゼクティブサマリー、So What / Now What、Limitations セクション
+- **エグゼクティブ向け構造化出力**: エグゼクティブサマリー、So What / Now What、Limitations セクション
 
 ## 使い方
 
@@ -50,7 +50,9 @@ A/Bテストの結果を検証して
 | GA4 / Google Ads | 対応 MCP 経由 |
 | 手動入力 | 対話でヒアリング → 構造化 |
 
-## GAFA品質の分析要素
+## 分析フレームワークの参考元
+
+> 以下の企業の公開手法・フレームワークを参考に設計しています。各企業の公式認定・準拠を意味するものではありません。
 
 | 企業 | 取り入れた要素 |
 |------|-------------|
@@ -83,7 +85,7 @@ analysis/
 - Python 3.11+
 
 ```bash
-pip install pandas scipy statsmodels matplotlib seaborn
+pip install -r requirements.txt
 ```
 
 ### Optional (MCP connections)
