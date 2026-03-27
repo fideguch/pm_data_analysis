@@ -82,3 +82,35 @@ Confidence: [High/Medium/Low] — [plain-language reason]
 ## Limitations
 - [What this analysis cannot tell you]
 - [Key assumptions]
+
+---
+
+## Reproduction
+
+### Environment
+- Python: [version], pandas [version], scipy [version]
+- Data source: [file path or MCP query or manual input]
+- Data snapshot: N=[row count], Date range=[start ~ end]
+
+### Code
+```python
+# Full analysis code — copy-paste runnable
+import pandas as pd
+# ... complete analysis pipeline ...
+```
+
+### SQL Queries (if applicable)
+```sql
+-- Remove this section if no SQL was used
+```
+
+### Parameters
+| Parameter | Value | Rationale |
+|-----------|-------|-----------|
+| alpha | 0.05 | Standard significance level |
+| [param] | [value] | [rationale] |
+
+### Re-run Instructions
+1. Ensure data file exists at [path] (or re-export from [source])
+2. Run the code block above
+3. Expected output: [key metric ≈ approximate value]

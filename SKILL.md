@@ -4,7 +4,7 @@ description: >-
   GAFA-quality data analysis skill with autonomous routing, project knowledge accumulation,
   and confidence-scored insights. Ingests CSV, images, JSON, and MCP data sources.
   Auto-learns business context per project. Includes bias detection, causal inference guidance,
-  AARRR lifecycle, metric trees, and executive-ready output.
+  AARRR lifecycle, metric trees, reproducible analysis history, and executive-ready output.
 type: interactive
 best_for:
   - "Analyzing CSV/spreadsheet data with statistical rigor"
@@ -26,6 +26,11 @@ triggers:
   - "この数字を分析して"
   - "KPIを見て"
   - "仮説を立てたい"
+  - "前回の分析"
+  - "再実行"
+  - "過去の分析結果"
+  - "reproduce"
+  - "re-run analysis"
 ---
 
 # PM Data Analysis
@@ -61,7 +66,9 @@ Autonomous decision: what to do now?
   ├── "Continue from last" → Load history/ → deep-dive
   ├── "Build a hypothesis" → Capability 3 (hypothesis + plan)
   ├── "Analyze this CSV"   → Capability 2 → 4 → 5 (skip hearing)
-  └── "Improve low confidence" → Request additional data → re-analyze
+  ├── "Improve low confidence" → Request additional data → re-analyze
+  ├── "Past analysis on X?" → Capability 6 (search history/index.md)
+  └── "Re-run with new data" → Capability 6 (reproduce + compare)
   ↓
 After execution: auto-update knowledge base
 ```
@@ -70,9 +77,11 @@ After execution: auto-update knowledge base
 
 1. `analysis/context.md` exists AND user has a specific request → skip hearing, execute immediately
 2. `analysis/context.md` missing → run initial hearing (Capability 1)
-3. Data attached → start quality check + analysis (ask 1 clarifying question if purpose unclear)
-4. Past analysis exists → reference it: "Last time [X] showed [Y]. Continue or new analysis?"
-5. Past Low-confidence finding exists → auto-suggest: "We can improve [X] with additional data: [list]"
+3. `analysis/context.md` Last Updated stale (see freshness thresholds in Capability 1) → warn: "Context last updated [date]. Review before analysis? [Y/n]"
+4. Data attached → start quality check + analysis (ask 1 clarifying question if purpose unclear)
+5. Past analysis exists → reference it: "Last time [X] showed [Y]. Continue or new analysis?"
+6. Past Low-confidence finding exists → auto-suggest: "We can improve [X] with additional data: [list]"
+7. `analysis/history/index.md` has >10 entries → surface trends: "You've run [N] analyses. Most common type: [X]. Declining confidence trend in [Y]?"
 
 ### Mandatory for ALL analyses
 
@@ -368,20 +377,13 @@ Confidence: [High/Medium/Low] — [plain-language reason]
 | 1 | [finding] | High (p=0.003, N=5,000) | +12% | +¥500K/mo | Diagnostic |
 | 2 | [finding] | Medium (N=200) | +5% | +¥100K/mo | Descriptive |
 
-### Confidence Scoring Rubric (quantitative — see references/statistical_tests.md)
-| Axis | High (3pt) | Medium (2pt) | Low (1pt) |
-|------|-----------|-------------|----------|
-| Statistical significance | p < 0.01 | p < 0.05 | p >= 0.05 or untested |
-| Effect size | >= Medium (Cohen) | Small-Medium | < Small or unknown |
-| Sample size | N >= recommended | N = 50-100% of rec. | N < 50% of rec. |
-| Data quality | Missing < 5% | Missing 5-15% | Missing > 15% |
-
-**Total: 10-12pt = High, 7-9pt = Medium, <= 6pt = Low**
+### Confidence Scoring Rubric
+→ See `references/statistical_tests.md` § "Confidence Scoring Rubric" for the quantitative 4-axis / 12-point matrix.
 
 Plain-language for stakeholders:
-- High: "This conclusion is reliable. Multiple data points converge."
-- Medium: "Direction is likely correct, but magnitude is uncertain."
-- Low: "This is a hypothesis worth exploring, not a conclusion to act on."
+- High (10-12pt): "This conclusion is reliable. Multiple data points converge."
+- Medium (7-9pt): "Direction is likely correct, but magnitude is uncertain."
+- Low (<=6pt): "This is a hypothesis worth exploring, not a conclusion to act on."
 
 ### Analysis Level
 - Descriptive: What happened
@@ -411,6 +413,106 @@ Plain-language for stakeholders:
 - [Assumptions that, if wrong, would change the conclusion]
 - [Known data quality issues and their impact]
 ```
+
+---
+
+## Capability 6: Reproducibility — Save, Search, Re-run
+
+**Trigger:** After every analysis execution (auto), or user says "前回の分析", "再実行", "history", "reproduce"
+
+### Why Reproducibility Matters
+
+Analysis without reproducibility is opinion. Every analysis must be re-runnable by anyone with the same data.
+
+### History Storage Format
+
+Every analysis report in `analysis/history/` includes embedded code blocks:
+
+```
+analysis/
+└── history/
+    ├── 2026-03-15_cohort.md        ← Report + embedded code
+    ├── 2026-03-20_ab_test.md
+    └── index.md                     ← Searchable index (auto-maintained)
+```
+
+### Report Code Embedding (MANDATORY)
+
+Every `analysis/history/YYYY-MM-DD_type.md` report MUST include a `## Reproduction` section at the end:
+
+```markdown
+## Reproduction
+
+### Environment
+- Python: 3.x, pandas x.x, scipy x.x
+- Data source: [file path or MCP query]
+- Data snapshot: [row count, date range, hash if available]
+
+### Code
+\```python
+# Full analysis code — copy-paste runnable
+import pandas as pd
+from scipy import stats
+
+df = pd.read_csv("path/to/data.csv")
+# ... complete analysis pipeline ...
+\```
+
+### SQL Queries (if applicable)
+\```sql
+SELECT ... FROM ... WHERE ...
+\```
+
+### Parameters
+| Parameter | Value | Rationale |
+|-----------|-------|-----------|
+| alpha | 0.05 | Standard significance level |
+| MDE | 5% relative | Business minimum |
+| ... | ... | ... |
+
+### Re-run Instructions
+1. Ensure data file exists at [path] (or re-export from [source])
+2. Run: `python -c "..."` or paste code into Jupyter
+3. Expected output: [key metric = approximate value]
+```
+
+### Auto-Save Rules
+
+After every Capability 4 (Analysis Execution):
+1. Save full report with Reproduction section to `analysis/history/YYYY-MM-DD_type.md`
+2. Update `analysis/history/index.md` with searchable entry
+3. Update `analysis/context.md` Analysis History summary
+
+### index.md Format (auto-maintained)
+
+```markdown
+# Analysis History Index
+
+| Date | Type | Decision | Key Finding | Confidence | Tags |
+|------|------|----------|-------------|------------|------|
+| 2026-03-15 | cohort | Retention strategy | D30 retention -8% mobile | High | retention, mobile, cohort |
+| 2026-03-20 | ab_test | Ship feature X? | +12% activation, no churn impact | High | ab_test, activation, feature-x |
+```
+
+### Natural Language Search
+
+When user asks about past analyses (e.g., "前回リテンションの分析あった？", "activation に関する過去の結果"):
+1. Load `analysis/history/index.md`
+2. Match query against: Type, Decision, Key Finding, Tags columns
+3. Present matching entries: "Found [N] related analyses: ..."
+4. User selects → load full report including Reproduction section
+5. Offer: "Re-run with same parameters? Or adjust [list modifiable params]?"
+
+### Re-run Workflow
+
+When user requests re-run ("再実行", "同じ分析を最新データで"):
+1. Load the selected report's `## Reproduction` section
+2. Check data availability: does the original data source still exist?
+   - **Same data**: Execute code as-is for verification
+   - **Updated data**: Execute code with new data, compare results to original
+   - **Data unavailable**: Warn user, suggest re-export instructions
+3. Present diff: "Original finding: [X]. Current result: [Y]. Delta: [Z]"
+4. If significant change detected → auto-trigger Disaggregation Protocol
 
 ---
 
