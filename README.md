@@ -1,6 +1,6 @@
 # pm-data-analysis
 
-GAFA品質のデータ分析スキル。プロジェクト知識を蓄積し、自律的に最適な分析を実行する。
+> CSVを渡すだけで、GAFA水準の信頼度付き分析レポートを自動生成する Claude Code スキル。
 
 ## 特徴
 
@@ -77,8 +77,57 @@ analysis/
 | 2回目 | 差分のみ（1-2分） | 前回コンテキスト + 過去結果 |
 | 3回目以降 | ほぼゼロ | 全蓄積知識を活用 |
 
-## 前提条件
+## Prerequisites
 
-- Python 3 + pandas, scipy, statsmodels, matplotlib, seaborn（インストール済み）
-- DuckDB MCP（推奨）
-- Chart MCP（推奨）
+- Claude Code CLI
+- Python 3.11+
+
+```bash
+pip install pandas scipy statsmodels matplotlib seaborn
+```
+
+### Optional (MCP connections)
+
+- DuckDB MCP — CSV に直接 SQL を実行
+- GA4 MCP — Google Analytics 4 データ取得
+- BigQuery MCP — 大規模データ分析
+
+## Installation
+
+```bash
+# Clone and symlink
+git clone git@github.com:fideguch/pm_data_analysis.git ~/pm_data_analysis
+ln -s ~/pm_data_analysis ~/.claude/skills/pm-data-analysis
+
+# Verify
+ls ~/.claude/skills/pm-data-analysis/SKILL.md
+```
+
+Setup time: ~5 min
+
+## When to Use
+
+- CSV/スプレッドシートのデータを統計的に分析したい
+- A/Bテストの結果を検証したい（有意差あるのか？）
+- KPIの異常値の原因を特定したい
+- 仮説を立ててからデータで検証したい
+
+## When NOT to Use
+
+- 広告データの分析 → `pm-ad-analysis` を使用
+- ファネル分析の詳細 → `funnel-analysis` を使用
+- ダッシュボードの構築 → BIツールを使用
+
+## PM Tool Suite
+
+このスキルは5つのPMツールスイートの一部です:
+
+```
+requirements_designer → speckit-bridge → my_pm_tools
+                              ↕
+                  ▶ pm-data-analysis ◀ ← pm_ad_analysis
+```
+
+## License
+
+MIT
