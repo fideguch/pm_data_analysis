@@ -7,30 +7,30 @@ description: >-
   AARRR lifecycle, metric trees, reproducible analysis history, and executive-ready output.
 type: interactive
 best_for:
-  - "Analyzing CSV/spreadsheet data with statistical rigor"
-  - "Building and maintaining project-specific analysis knowledge base"
-  - "Generating confidence-scored insights for PM decision-making"
-  - "A/B test validation with proper statistical testing"
-  - "Funnel, cohort, segment, and trend analysis"
-  - "Hypothesis generation and analysis planning"
+  - 'Analyzing CSV/spreadsheet data with statistical rigor'
+  - 'Building and maintaining project-specific analysis knowledge base'
+  - 'Generating confidence-scored insights for PM decision-making'
+  - 'A/B test validation with proper statistical testing'
+  - 'Funnel, cohort, segment, and trend analysis'
+  - 'Hypothesis generation and analysis planning'
 triggers:
-  - "データ分析"
-  - "CSV分析"
-  - "A/Bテスト"
-  - "コホート分析"
-  - "ファネル分析"
-  - "セグメント比較"
-  - "トレンド分析"
-  - "data analysis"
-  - "analyze this"
-  - "この数字を分析して"
-  - "KPIを見て"
-  - "仮説を立てたい"
-  - "前回の分析"
-  - "再実行"
-  - "過去の分析結果"
-  - "reproduce"
-  - "re-run analysis"
+  - 'データ分析'
+  - 'CSV分析'
+  - 'A/Bテスト'
+  - 'コホート分析'
+  - 'ファネル分析'
+  - 'セグメント比較'
+  - 'トレンド分析'
+  - 'data analysis'
+  - 'analyze this'
+  - 'この数字を分析して'
+  - 'KPIを見て'
+  - '仮説を立てたい'
+  - '前回の分析'
+  - '再実行'
+  - '過去の分析結果'
+  - 'reproduce'
+  - 're-run analysis'
 ---
 
 # PM Data Analysis
@@ -42,6 +42,7 @@ GAFA品質のデータ分析スキル。プロジェクト知識を蓄積し、�
 ## Resource Loading
 
 References are loaded on-demand to preserve context window:
+
 - `references/statistical_tests.md` → Load only when statistical test selection or execution is needed
 - `references/analysis_patterns.md` → Load only when applying a specific analysis pattern
 - `templates/context.md` → Load only when creating initial analysis/context.md
@@ -86,6 +87,7 @@ After execution: auto-update knowledge base
 ### Mandatory for ALL analyses
 
 Before ANY analysis output, enforce:
+
 - **Decision Statement**: "What decision will this analysis inform?" (refuse to proceed without it)
 - **Bias Checklist**: Auto-execute before presenting results
 - **Confidence Score**: Every finding gets High/Medium/Low with evidence
@@ -121,6 +123,7 @@ Use `templates/context.md` as the base. Key sections:
 ### Auto-Update Rules
 
 After every analysis session, automatically:
+
 - Append to `analysis/history/` with dated report
 - Update `context.md` Analysis History with 1-line summary
 - Add any newly discovered data sources to `data_catalog.md`
@@ -146,6 +149,7 @@ After every analysis session, automatically:
 ### Decision Statement (MANDATORY — Amazon)
 
 Before any analysis, require:
+
 ```
 Decision Statement: What decision will this analysis inform?
 → [User must articulate this. Do not proceed without it.]
@@ -154,19 +158,17 @@ Decision Statement: What decision will this analysis inform?
 ### Business Context Hearing (first time only)
 
 **Required (must answer before any analysis):**
+
 1. Business model (SaaS / EC / Marketplace / Ads / Other)
 2. North Star Metric
 3. Decision Statement (what decision will this analysis inform?)
 
-**Optional (can be added later as context accumulates):**
-4. Business stage (Pre-PMF / Growth / Scale / Mature)
-5. Tenets (what to prioritize when metrics conflict)
-6. Available data sources
-7. Input metrics decomposition
+**Optional (can be added later as context accumulates):** 4. Business stage (Pre-PMF / Growth / Scale / Mature) 5. Tenets (what to prioritize when metrics conflict) 6. Available data sources 7. Input metrics decomposition
 
 ### AARRR Lifecycle Mapping (Meta)
 
 On first use, build AARRR mapping in `kpi_definitions.md`:
+
 ```
 | Stage | Definition | Key Metric | Current Value |
 |-------|-----------|-----------|--------------|
@@ -180,6 +182,7 @@ On first use, build AARRR mapping in `kpi_definitions.md`:
 ### Metric Tree (Meta)
 
 Decompose North Star into controllable input metrics:
+
 ```
 North Star: [metric]
   = New + Retained + Resurrected - Churned
@@ -198,22 +201,26 @@ Store in `kpi_definitions.md`. Reference in every subsequent analysis.
 ### Ingestion by Format
 
 **CSV/TSV:**
+
 1. Read first 50 rows to understand structure
 2. Show column names, types, null percentages
 3. For large files (1000+ rows): compute summary stats via Python (pandas)
 
 **Images (dashboard screenshots, charts):**
+
 1. Read via multimodal (Read tool on image file)
 2. Extract: chart type, axis labels, data points, trends
 3. Convert to table format
 4. Ask user: "Is this extraction accurate?"
 
 **MCP (DuckDB, GA4, BigQuery):**
+
 1. Execute query via MCP
 2. Display results as table
 3. Verify data freshness (last update date)
 
 **JSON/JSONL:**
+
 1. Read and parse structure
 2. Identify key fields and nesting
 3. Flatten if needed for analysis
@@ -221,6 +228,7 @@ Store in `kpi_definitions.md`. Reference in every subsequent analysis.
 ### Data Quality Check (MANDATORY)
 
 Execute before any analysis:
+
 ```
 Data Quality Report
 
@@ -245,6 +253,7 @@ If issues found: explain impact, ask "Proceed with caveats or fix first?"
 ### Hypothesis Generation
 
 From context.md + recent data, generate testable hypotheses:
+
 ```
 Hypothesis: If [change/condition], then [metric] will [direction] because [mechanism].
 Test: [specific analysis to validate]
@@ -281,6 +290,7 @@ Guardrail Metrics (must not degrade):
 ### Confidence Pre-Assessment (CRITICAL)
 
 Before executing, estimate achievable confidence:
+
 ```
 | Factor | Rating | Reason |
 |--------|--------|--------|
@@ -307,16 +317,17 @@ When user seeks causal claims, refer to `references/statistical_tests.md` → "C
 
 ### Tools
 
-| Type | Tool | Method |
-|------|------|--------|
-| Descriptive stats | Python (Bash) | pandas: mean/median/std/percentile |
-| Statistical tests | Python (Bash) | scipy.stats: t-test, chi-squared, Mann-Whitney |
-| Regression | Python (Bash) | statsmodels: OLS + p-values + confidence intervals |
-| SQL analysis | DuckDB MCP or Bash | Direct SQL on CSV |
-| Visualization | Python matplotlib/seaborn or Chart MCP | Generate chart → Read to display |
-| A/B testing | Python (Bash) | Frequentist or Bayesian, with power analysis |
+| Type              | Tool                                   | Method                                             |
+| ----------------- | -------------------------------------- | -------------------------------------------------- |
+| Descriptive stats | Python (Bash)                          | pandas: mean/median/std/percentile                 |
+| Statistical tests | Python (Bash)                          | scipy.stats: t-test, chi-squared, Mann-Whitney     |
+| Regression        | Python (Bash)                          | statsmodels: OLS + p-values + confidence intervals |
+| SQL analysis      | DuckDB MCP or Bash                     | Direct SQL on CSV                                  |
+| Visualization     | Python matplotlib/seaborn or Chart MCP | Generate chart → Read to display                   |
+| A/B testing       | Python (Bash)                          | Frequentist or Bayesian, with power analysis       |
 
 **If Python is not available:**
+
 - Use DuckDB MCP for SQL-based analysis (aggregation, joins, window functions)
 - Present results as text tables (no charts)
 - Note in report: "Visualization unavailable — Python not installed"
@@ -324,6 +335,7 @@ When user seeks causal claims, refer to `references/statistical_tests.md` → "C
 ### Analysis Pattern Library
 
 Refer to `references/analysis_patterns.md` for detailed patterns:
+
 - Funnel analysis (from funnel-analysis skill)
 - Cohort analysis (retention curves, heatmaps, LTV prediction)
 - A/B test validation (sample size, significance, effect size, novelty check)
@@ -349,11 +361,12 @@ If any bias detected: note in output, adjust confidence accordingly.
 ### Disaggregation Protocol (Amazon)
 
 When anomaly detected (>10% change from baseline), auto-trigger:
+
 1. Split by segment → which segment drives the change?
 2. Split by time → when did the change start?
 3. Split by product/feature → which area is affected?
 4. Split by geography/platform → localized or global?
-→ Continue recursively until root cause is identified
+   → Continue recursively until root cause is identified
 
 ---
 
@@ -365,6 +378,7 @@ When anomaly detected (>10% change from baseline), auto-trigger:
 
 ```markdown
 ## Executive Summary
+
 [1 sentence: Decision context]
 [1 sentence: Key finding]
 [1 sentence: Recommended action]
@@ -372,43 +386,51 @@ Confidence: [High/Medium/Low] — [plain-language reason]
 
 ## Key Findings
 
-| # | Finding | Confidence | Effect Size | Business Impact | Level |
-|---|---------|------------|-------------|-----------------|-------|
-| 1 | [finding] | High (p=0.003, N=5,000) | +12% | +¥500K/mo | Diagnostic |
-| 2 | [finding] | Medium (N=200) | +5% | +¥100K/mo | Descriptive |
+| #   | Finding   | Confidence              | Effect Size | Business Impact | Level       |
+| --- | --------- | ----------------------- | ----------- | --------------- | ----------- |
+| 1   | [finding] | High (p=0.003, N=5,000) | +12%        | +¥500K/mo       | Diagnostic  |
+| 2   | [finding] | Medium (N=200)          | +5%         | +¥100K/mo       | Descriptive |
 
 ### Confidence Scoring Rubric
+
 → See `references/statistical_tests.md` § "Confidence Scoring Rubric" for the quantitative 4-axis / 12-point matrix.
 
 Plain-language for stakeholders:
+
 - High (10-12pt): "This conclusion is reliable. Multiple data points converge."
 - Medium (7-9pt): "Direction is likely correct, but magnitude is uncertain."
 - Low (<=6pt): "This is a hypothesis worth exploring, not a conclusion to act on."
 
 ### Analysis Level
+
 - Descriptive: What happened
 - Diagnostic: Why it happened
 - Predictive: What will happen
 - Prescriptive: What to do about it
 
 ## So What? (What this means for the business)
+
 [Interpretation tied to business context and tenets]
 
 ## Now What? (Recommended actions)
-| Priority | Action | Expected Effect | Confidence |
-|----------|--------|----------------|------------|
-| 1 | [action] | [effect] | [H/M] |
+
+| Priority | Action   | Expected Effect | Confidence |
+| -------- | -------- | --------------- | ---------- |
+| 1        | [action] | [effect]        | [H/M]      |
 
 ## Guardrail Check
-| Metric | Before | After | Status |
-|--------|--------|-------|--------|
+
+| Metric   | Before  | After   | Status       |
+| -------- | ------- | ------- | ------------ |
 | [metric] | [value] | [value] | OK / WARNING |
 
 ## Additional Data Needed (if Medium/Low confidence)
+
 - [data 1]
 - [data 2]
 
 ## Limitations
+
 - [What this analysis cannot tell you]
 - [Assumptions that, if wrong, would change the conclusion]
 - [Known data quality issues and their impact]
@@ -440,45 +462,55 @@ analysis/
 
 Every `analysis/history/YYYY-MM-DD_type.md` report MUST include a `## Reproduction` section at the end:
 
-```markdown
+````markdown
 ## Reproduction
 
 ### Environment
+
 - Python: 3.x, pandas x.x, scipy x.x
 - Data source: [file path or MCP query]
 - Data snapshot: [row count, date range, hash if available]
 
 ### Code
+
 \```python
+
 # Full analysis code — copy-paste runnable
+
 import pandas as pd
 from scipy import stats
 
 df = pd.read_csv("path/to/data.csv")
+
 # ... complete analysis pipeline ...
+
 \```
 
 ### SQL Queries (if applicable)
+
 \```sql
 SELECT ... FROM ... WHERE ...
 \```
 
 ### Parameters
-| Parameter | Value | Rationale |
-|-----------|-------|-----------|
-| alpha | 0.05 | Standard significance level |
-| MDE | 5% relative | Business minimum |
-| ... | ... | ... |
+
+| Parameter | Value       | Rationale                   |
+| --------- | ----------- | --------------------------- |
+| alpha     | 0.05        | Standard significance level |
+| MDE       | 5% relative | Business minimum            |
+| ...       | ...         | ...                         |
 
 ### Re-run Instructions
+
 1. Ensure data file exists at [path] (or re-export from [source])
 2. Run: `python -c "..."` or paste code into Jupyter
 3. Expected output: [key metric = approximate value]
-```
+````
 
 ### Auto-Save Rules
 
 After every Capability 4 (Analysis Execution):
+
 1. Save full report with Reproduction section to `analysis/history/YYYY-MM-DD_type.md`
 2. Update `analysis/history/index.md` with searchable entry
 3. Update `analysis/context.md` Analysis History summary
@@ -488,15 +520,16 @@ After every Capability 4 (Analysis Execution):
 ```markdown
 # Analysis History Index
 
-| Date | Type | Decision | Key Finding | Confidence | Tags |
-|------|------|----------|-------------|------------|------|
-| 2026-03-15 | cohort | Retention strategy | D30 retention -8% mobile | High | retention, mobile, cohort |
-| 2026-03-20 | ab_test | Ship feature X? | +12% activation, no churn impact | High | ab_test, activation, feature-x |
+| Date       | Type    | Decision           | Key Finding                      | Confidence | Tags                           |
+| ---------- | ------- | ------------------ | -------------------------------- | ---------- | ------------------------------ |
+| 2026-03-15 | cohort  | Retention strategy | D30 retention -8% mobile         | High       | retention, mobile, cohort      |
+| 2026-03-20 | ab_test | Ship feature X?    | +12% activation, no churn impact | High       | ab_test, activation, feature-x |
 ```
 
 ### Natural Language Search
 
 When user asks about past analyses (e.g., "前回リテンションの分析あった？", "activation に関する過去の結果"):
+
 1. Load `analysis/history/index.md`
 2. Match query against: Type, Decision, Key Finding, Tags columns
 3. Present matching entries: "Found [N] related analyses: ..."
@@ -506,6 +539,7 @@ When user asks about past analyses (e.g., "前回リテンションの分析あ�
 ### Re-run Workflow
 
 When user requests re-run ("再実行", "同じ分析を最新データで"):
+
 1. Load the selected report's `## Reproduction` section
 2. Check data availability: does the original data source still exist?
    - **Same data**: Execute code as-is for verification
@@ -518,24 +552,86 @@ When user requests re-run ("再実行", "同じ分析を最新データで"):
 
 ## Existing Skill Delegation
 
-| Analysis Type | Delegate To | Method |
-|--------------|------------|--------|
-| Funnel details | `funnel-analysis` | Apply patterns internally |
-| A/B test design | `cro-methodology` | ICE scoring + test patterns |
-| SaaS metrics | `pm-saas-revenue-growth-metrics` | Formulas + benchmarks |
-| Business health | `pm-business-health-diagnostic` | 4-dimension diagnosis |
-| Market sizing | `pm-tam-sam-som-calculator` | Market calculation |
+| Analysis Type   | Delegate To                      | Method                      |
+| --------------- | -------------------------------- | --------------------------- |
+| Funnel details  | `funnel-analysis`                | Apply patterns internally   |
+| A/B test design | `cro-methodology`                | ICE scoring + test patterns |
+| SaaS metrics    | `pm-saas-revenue-growth-metrics` | Formulas + benchmarks       |
+| Business health | `pm-business-health-diagnostic`  | 4-dimension diagnosis       |
+| Market sizing   | `pm-tam-sam-som-calculator`      | Market calculation          |
 
 ---
 
 ## Reference Files
 
-| File | When Referenced |
-|------|----------------|
+| File                              | When Referenced                      |
+| --------------------------------- | ------------------------------------ |
 | `references/statistical_tests.md` | Choosing the right test for the data |
-| `references/analysis_patterns.md` | Applying standard analysis patterns |
-| `templates/context.md` | Creating initial analysis/context.md |
-| `templates/analysis_report.md` | Formatting analysis output |
+| `references/analysis_patterns.md` | Applying standard analysis patterns  |
+| `templates/context.md`            | Creating initial analysis/context.md |
+| `templates/analysis_report.md`    | Formatting analysis output           |
+
+---
+
+## Known Limitations & Edge Cases
+
+### Data Format Constraints
+
+- **CSV**: UTF-8/Shift_JIS 自動検出。10万行超は処理時間が増加（推奨: サンプリングまたは分割）
+- **画像**: グラフ/チャート画像は視覚的解釈のみ（OCR 精度に依存、数値の正確性は保証しない）
+- **JSON**: ネストが 5 階層を超える場合、フラット化が不完全になる場合あり
+- **Excel**: .xlsx は直接パース不可。CSV エクスポートが必要
+
+### Statistical Analysis Caveats
+
+- サンプルサイズ < 30 の場合、統計的有意性テストの信頼性が低下
+- バイアス検出は既知パターン（生存者バイアス、選択バイアス等）のみ対応
+- 因果推論は相関分析に基づく示唆のみ提供（実験デザインの代替にはならない）
+- 時系列予測は過去パターンの外挿であり、構造変化には対応不可
+
+### Confidence Scoring
+
+- スコアは 0.0-1.0 で表示。0.7 未満は「低確信」として追加検証を推奨
+- スコアは分析手法・データ量・データ品質から算出（主観的要素を含む）
+- 異なるセッション間でのスコア比較は非推奨（コンテキストが異なるため）
+
+### Knowledge Accumulation
+
+- `analysis/context.md` はプロジェクト単位。複数プロジェクト間の知識共有は非対応
+- 知識の自動期限切れなし（古い知識が誤解を招く可能性あり。定期的な見直しを推奨）
+- MCP データソースの可用性はプロジェクト設定に依存
+
+### Non-Supported Scenarios
+
+- リアルタイムストリーミングデータの分析
+- 機械学習モデルのトレーニングと推論
+- データベースへの直接接続（CSV/JSON エクスポートが必要）
+- PII（個人識別情報）を含むデータの匿名化処理
+
+---
+
+## Error Handling & Recovery
+
+### Common Failure Modes
+
+| Failure                  | Detection                                  | Recovery                                                               |
+| ------------------------ | ------------------------------------------ | ---------------------------------------------------------------------- |
+| CSV parse error          | Malformed rows, encoding issues            | Try UTF-8/Shift-JIS auto-detect, show first error row, ask user to fix |
+| Insufficient sample size | N < 30 for statistical tests               | Warn, suggest aggregation or longer timeframe                          |
+| MCP connection failure   | Timeout or auth error                      | Fallback to CSV export, cache last successful query                    |
+| Stale context            | context.md > freshness threshold           | Prompt user to update, show what changed since last update             |
+| Conflicting metrics      | North star improves but guardrail degrades | Flag conflict, present tradeoff analysis with tenets                   |
+| Missing KPI definitions  | analysis/kpi_definitions.md absent         | Generate defaults from context.md business model                       |
+| Image extraction error   | OCR/visual interpretation unreliable       | Ask user to confirm extracted values, note uncertainty                 |
+| Large file timeout       | CSV > 100K rows, processing exceeds limit  | Recommend sampling strategy or chunked analysis                        |
+
+### Error Message Format
+
+All errors must include three parts:
+
+1. **What happened**: Clear description of the failure
+2. **Why it matters**: Impact on the analysis and confidence
+3. **What to do next**: Specific recovery steps the user can take
 
 ---
 

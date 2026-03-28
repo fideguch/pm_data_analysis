@@ -1,0 +1,25 @@
+{
+  "name": "pm-data-analysis",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "npx playwright test",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "npx tsc --noEmit",
+    "format": "npx prettier --write '**/*.{ts,md,json,yml}'",
+    "format:check": "npx prettier --check '**/*.{ts,md,json,yml}'",
+    "quality": "npm run lint && npm run typecheck && npm run format:check && npm test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^22.15.0",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.0",
+    "prettier": "^3.8.1",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.34.0"
+  }
+}

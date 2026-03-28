@@ -1,6 +1,7 @@
 # Analysis Patterns Library
 
 ## Funnel Analysis
+
 → Delegate to `funnel-analysis` skill for detailed implementation.
 Key outputs: stage conversion rates, drop-off visualization, segment comparison.
 
@@ -13,6 +14,7 @@ Key outputs: stage conversion rates, drop-off visualization, segment comparison.
 5. Project LTV from retention curves
 
 ## A/B Test Validation
+
 Source: cro-methodology skill
 
 1. Pre-registration check: Was hypothesis + primary metric + sample size defined before test?
@@ -39,6 +41,7 @@ Quick Ratio = (New + Resurrected) / Churned
 ```
 
 Quick Ratio interpretation:
+
 - > 4.0: Excellent (hyper-growth)
 - 2.0-4.0: Good (healthy growth)
 - 1.0-2.0: Concerning (growth slowing)
@@ -54,6 +57,7 @@ Quick Ratio interpretation:
 ## Disaggregation Protocol (Amazon)
 
 When anomaly detected (>10% change from baseline):
+
 1. Split by user segment → which segment drives the change?
 2. Split by time period → when exactly did the change start?
 3. Split by product/feature → which area is affected?
@@ -64,26 +68,26 @@ Present as drill-down tree in output.
 
 ## Segmentation Depth Ladder (Meta)
 
-| Level | Type | Example | When to Use |
-|-------|------|---------|-------------|
-| 1 | Channel | Organic / Paid / Direct | Quick overview |
-| 2 | Demographic | Geography, company size | Market analysis |
-| 3 | Behavioral | Feature usage, engagement frequency | Product analysis |
-| 4 | Lifecycle | New / Activated / Retained / Dormant / Resurrected | Growth analysis |
-| 5 | Value-based | High-LTV / Low-LTV clusters | Monetization |
+| Level | Type        | Example                                            | When to Use      |
+| ----- | ----------- | -------------------------------------------------- | ---------------- |
+| 1     | Channel     | Organic / Paid / Direct                            | Quick overview   |
+| 2     | Demographic | Geography, company size                            | Market analysis  |
+| 3     | Behavioral  | Feature usage, engagement frequency                | Product analysis |
+| 4     | Lifecycle   | New / Activated / Retained / Dormant / Resurrected | Growth analysis  |
+| 5     | Value-based | High-LTV / Low-LTV clusters                        | Monetization     |
 
 Default to Level 3+. Warn if analysis uses only Level 1-2.
 
 ## Chart Selection Guide (Apple)
 
-| Insight Type | Chart | Rule |
-|-------------|-------|------|
-| Comparison across categories | Horizontal bar | Easy label reading |
-| Trend over time | Line chart | Shows direction + inflection |
-| Part-to-whole | Stacked bar or 100% bar | Never pie charts |
-| Distribution | Histogram or box plot | Shows shape, not just mean |
-| Correlation | Scatter plot | Reveals outliers |
-| Funnel | Funnel or horizontal bar | Stage-by-stage drop |
-| Retention | Heatmap | Cohort × time period |
+| Insight Type                 | Chart                    | Rule                         |
+| ---------------------------- | ------------------------ | ---------------------------- |
+| Comparison across categories | Horizontal bar           | Easy label reading           |
+| Trend over time              | Line chart               | Shows direction + inflection |
+| Part-to-whole                | Stacked bar or 100% bar  | Never pie charts             |
+| Distribution                 | Histogram or box plot    | Shows shape, not just mean   |
+| Correlation                  | Scatter plot             | Reveals outliers             |
+| Funnel                       | Funnel or horizontal bar | Stage-by-stage drop          |
+| Retention                    | Heatmap                  | Cohort × time period         |
 
 **Rule:** Every chart title states the insight ("Activation drops 40% at step 3"), not a label ("Funnel by Stage").
