@@ -1,0 +1,7 @@
+# pm-data-analysis Python dependencies
+# Verified: 2026-03
+pandas>=2.0,<3.0
+scipy>=1.11,<2.0
+statsmodels>=0.14,<1.0
+matplotlib>=3.7,<4.0
+seaborn>=0.13,<1.0
